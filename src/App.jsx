@@ -2,8 +2,7 @@ import './App.css'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Nav from './components/Nav'
-import Search from './components/Search'
-import Table from './components/Table'
+import TaskSection from './components/TaskSection'
 
 function App() {
 
@@ -14,8 +13,7 @@ function App() {
         <Hero/>
       </div>
       <div className='rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-3 md:px-9 md:py-16 w-[80%] mx-auto'>
-        <Search/>
-        <Table/>
+        <TaskSection/>
       </div>
       <div>
         <Footer/>

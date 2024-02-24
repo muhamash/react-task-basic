@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Tags from './Tags';
 
-const TableData = ({ task }) => {
+const TableData = ({ task, handleDelete,id }) => {
     const { title, description, tags, priority, isFavorite } = task;
     const [favorite, setFavorite] = useState(isFavorite);
 
@@ -11,10 +11,14 @@ const TableData = ({ task }) => {
         setFavorite(!favorite);
     };
 
+    const handleClick = () =>
+    {
+        handleDelete( id );
+    }
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td onClick={toggleFavorite}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-star" width="24"
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-star cursor-pointer" width="24"
                     height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="green" fill={favorite ? 'green' : 'none'}
                     strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -40,8 +44,12 @@ const TableData = ({ task }) => {
             <td className="text-center">{priority}</td>
             <td>
                 <div className="flex items-center justify-center space-x-3">
-                    <button className="text-red-500">Delete</button>
-                    <button className="text-blue-500">Edit</button>
+                    <button
+                        onClick={handleClick}
+                        className="text-red-500">Delete</button>
+                    <button
+                        onClick={""}
+                        className="text-blue-500">Edit</button>
                 </div>
             </td>
         </tr>
