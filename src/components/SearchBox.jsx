@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 const SearchBox = ({ handleSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleChange = (event) => {
-        setSearchQuery(event.target.value);
+    const handleChange = ( event ) =>
+    {
+        event.preventDefault();
+        setSearchQuery( event.target.value );
         handleSearch(event.target.value);
     };
 

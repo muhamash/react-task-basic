@@ -2,7 +2,7 @@ import React from 'react';
 import TableData from './TableData';
 import TableHead from './TableHead';
 
-const Table = ({data, handleDelete}) => {
+const Table = ({data, handleDelete, handleToggleFavorite}) => {
    
     return (
         <div className='overflow-auto'>
@@ -18,7 +18,8 @@ const Table = ({data, handleDelete}) => {
                                     key={task.id}
                                     task={task}
                                     handleDelete={handleDelete}
-                                    id={task.id}
+                                    id={ task.id }
+                                    handleToggleFavorite={handleToggleFavorite}
                                 />
                             ))
                         )

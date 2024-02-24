@@ -4,17 +4,40 @@ import Search from './Search';
 import Table from './Table';
 
 const TaskSection = () => {
-    const [data, setData] = useState(taskData);
+    const [ data, setData ] = useState( taskData );
+    const [filteredData, setFilteredData] = useState(data);
+
+
+    const handleToggleFavorite = ( taskId ) =>
+    {
+        setFilteredData( prevData =>
+        {
+            const updatedData = prevData.map( task =>
+            {
+                if ( task.id === taskId )
+                {
+                    return { ...task, isFavorite: !task.isFavorite };
+                }
+                return task;
+            } );
+            return updatedData;
+        } );
+    };
+
 
     const handleDelete = (deletedId) => {
          const updatedData = deletedId ? data.filter(item => item.id !== deletedId) : [];
-        setData(updatedData);
+        setFilteredData( updatedData );
+        setData(updatedData)
     };
     
     const handleSearch = (event) =>
     {
         const filteredData = data.filter( item => item.title.toLowerCase().includes( event.toLowerCase() ) )
-        setData(filteredData)
+        setFilteredData( filteredData )
+        // setData(filteredData)
+
+        
     }
 
     return (
@@ -23,8 +46,9 @@ const TaskSection = () => {
                 handleSearch={handleSearch}
                 handleDelete={ handleDelete } />
             <Table
-                data={data}
-                handleDelete={handleDelete}
+                data={filteredData}
+                handleDelete={ handleDelete }
+                handleToggleFavorite={handleToggleFavorite}
             />
         </div>
     );
