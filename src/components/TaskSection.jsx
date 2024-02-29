@@ -3,10 +3,10 @@ import taskData from '../assets/data';
 import Search from './Search';
 import Table from './Table';
 
-const TaskSection = () => {
+const TaskSection = () =>
+{
     const [ data, setData ] = useState( taskData );
-    const [filteredData, setFilteredData] = useState(data);
-
+    const [ filteredData, setFilteredData ] = useState( taskData );
 
     const handleToggleFavorite = ( taskId ) =>
     {
@@ -24,31 +24,29 @@ const TaskSection = () => {
         } );
     };
 
-
-    const handleDelete = (deletedId) => {
-         const updatedData = deletedId ? data.filter(item => item.id !== deletedId) : [];
-        setFilteredData( updatedData );
-        setData(updatedData)
-    };
-    
-    const handleSearch = (event) =>
+    const handleDelete = ( deletedId ) =>
     {
-        const filteredData = data.filter( item => item.title.toLowerCase().includes( event.toLowerCase() ) )
-        setFilteredData( filteredData )
-        // setData(filteredData)
+        const updatedData = deletedId ? filteredData.filter( item => item.id !== deletedId ) : [];
+        setFilteredData( updatedData );
+        setData( updatedData );
+    };
 
-        
-    }
+    const handleSearch = ( event ) =>
+    {
+        const filteredData = data.filter( item => item.title.toLowerCase().includes( event.toLowerCase() ) );
+        setFilteredData( filteredData );
+    };
 
     return (
         <div>
             <Search
-                handleSearch={handleSearch}
-                handleDelete={ handleDelete } />
-            <Table
-                data={filteredData}
+                handleSearch={ handleSearch }
                 handleDelete={ handleDelete }
-                handleToggleFavorite={handleToggleFavorite}
+            />
+            <Table
+                data={ filteredData }
+                handleDelete={ handleDelete }
+                handleToggleFavorite={ handleToggleFavorite }
             />
         </div>
     );
