@@ -11,7 +11,9 @@ const Table = ({data, handleDelete, handleToggleFavorite}) => {
                 <tbody>
                     {
                         data.length === 0 ? (
-                            <tr><td>no data</td></tr>
+                            <tr>
+                                <td>no data</td>
+                            </tr>
                         ) : (
                             data.map(task => (
                                 <TableData

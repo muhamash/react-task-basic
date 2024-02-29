@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import AddTask from './AddTask';
 import SearchBox from './SearchBox';
 
 const Search = ( { handleDelete, handleSearch } ) =>
 {
+    const [ modal, setModal ] = useState( false );
+
+    const handleModal = () =>
+    {
+        setModal(true)
+    }
+
+    const handleClose = () =>
+    {
+        setModal(false)
+    }
+    
     const handleDeleteAll = () => {
         handleDelete(null);
         // console.log("hjsdfb")
@@ -13,11 +26,16 @@ const Search = ( { handleDelete, handleSearch } ) =>
             <div className='flex items-center space-x-5'>
                 <SearchBox handleSearch={handleSearch}/>
                 <button
-                    
+                    onClick={handleModal}
                     className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold">Add Task</button>
                 <button
                     onClick={ handleDeleteAll }
                     className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold">Delete All</button>
+                { modal && (
+                    <React.Fragment>
+                        <AddTask onClose={ handleClose } />
+                    </React.Fragment>
+                )}
             </div>
         </div>
     );
