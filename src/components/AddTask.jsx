@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-const AddTask = ({onClose}) =>
+const AddTask = ({onClose, task}) =>
 {
     return (
-        <div className='absolute w-[96vw] left-0 translate-y-[110px]'>
+        <div className='absolute w-[96vw] left-0 -bottom-[580px]'>
             <form
                 className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11"
             >

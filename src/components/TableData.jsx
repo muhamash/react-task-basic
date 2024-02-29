@@ -1,21 +1,22 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import Tags from './Tags';
 
-const TableData = ({ task, handleDelete,id, handleToggleFavorite }) => {
+const TableData = ({ task, handleDelete, id, handleToggleFavorite, openAddTaskModal }) => {
     const { title, description, tags, priority, isFavorite } = task;
 
-    const toggleFavorite = ( ) =>
-    {
-        console.log("sf",id)
+    const toggleFavorite = () => {
+        console.log("sf", id)
         handleToggleFavorite(id);
     };
 
-    const handleClick = () =>
-    {
-        handleDelete( id );
-    }
+    const handleClick = () => {
+        handleDelete(id);
+    };
+
+    const handleEditClick = () => {
+        openAddTaskModal();
+    };
+
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td onClick={toggleFavorite}>
@@ -35,11 +36,9 @@ const TableData = ({ task, handleDelete,id, handleToggleFavorite }) => {
             </td>
             <td>
                 <ul className="flex justify-center gap-1.5 flex-wrap">
-                    {
-                        tags.map((tag, index) => (
-                            <Tags key={index} tag={tag} />
-                        ))
-                    }
+                    {tags.map((tag, index) => (
+                        <Tags key={index} tag={tag} />
+                    ))}
                 </ul>
             </td>
             <td className="text-center">{priority}</td>
@@ -49,7 +48,7 @@ const TableData = ({ task, handleDelete,id, handleToggleFavorite }) => {
                         onClick={handleClick}
                         className="text-red-500">Delete</button>
                     <button
-                        onClick={""}
+                        onClick={handleEditClick}
                         className="text-blue-500">Edit</button>
                 </div>
             </td>

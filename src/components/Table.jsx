@@ -2,7 +2,7 @@ import React from 'react';
 import TableData from './TableData';
 import TableHead from './TableHead';
 
-const Table = ({data, handleDelete, handleToggleFavorite}) => {
+const Table = ({data, handleDelete, handleToggleFavorite, isAddTaskModalOpen, openAddTaskModal, closeAddTaskModal}) => {
    
     return (
         <div className='overflow-auto'>
@@ -15,15 +15,18 @@ const Table = ({data, handleDelete, handleToggleFavorite}) => {
                                 <td>no data</td>
                             </tr>
                         ) : (
-                            data.map(task => (
+                            data.map( task => (
                                 <TableData
-                                    key={task.id}
-                                    task={task}
-                                    handleDelete={handleDelete}
+                                    key={ task.id }
+                                    task={ task }
+                                    handleDelete={ handleDelete }
                                     id={ task.id }
-                                    handleToggleFavorite={handleToggleFavorite}
+                                    handleToggleFavorite={ handleToggleFavorite }
+                                    isAddTaskModalOpen={ isAddTaskModalOpen }
+                                    openAddTaskModal={ openAddTaskModal }
+                                    closeAddTaskModal={ closeAddTaskModal }
                                 />
-                            ))
+                            ) )
                         )
                     }
                 </tbody>
