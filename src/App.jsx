@@ -1,8 +1,10 @@
-import './App.css'
-import Footer from './components/Footer'
-import Hero from './components/Hero'
-import Nav from './components/Nav'
-import TaskSection from './components/TaskSection'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
+import Footer from './components/Footer';
+import Hero from './components/Hero';
+import Nav from './components/Nav';
+import TaskSection from './components/TaskSection';
 
 function App() {
 
@@ -18,7 +20,7 @@ function App() {
       <div>
         <Footer/>
       </div>
-      {/* <AddTask/> */}
+      <ToastContainer />
     </div>
   )
 }

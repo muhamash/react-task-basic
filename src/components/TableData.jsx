@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { useTasksDispatch } from '../context/TaskProvider';
 import AddTask from './AddTask';
 import Tags from './Tags';
@@ -12,25 +14,23 @@ const TableData = ( { task } ) =>
 
     const toggleFavorite = () =>
     {
-        // console.log("sf", id)
-        // handleToggleFavorite(id);
-        console.log("fav")
         dispatch( {
             type: "EDIT_TASK",
             payload: {
                 ...task,
                 isFavorite: !isFavorite
             }
-        } )
+        } );
     };
 
     const handleClick = () =>
     {
-        console.log("handle click")
         dispatch( {
             type: "DELETE_TASK",
             payload: { id }
-        } )
+        } );
+
+        toast.success( "Task deleted successfully!" );
     };
 
     const handleEditClick = () =>
@@ -77,9 +77,9 @@ const TableData = ( { task } ) =>
                         onClick={ handleEditClick }
                         className="text-blue-500">Edit</button>
                 </div>
-                 { isModalOpen && (
-                <AddTask onClose={ handleCloseModal } task={ task } />
-            ) }
+                { isModalOpen && (
+                    <AddTask onClose={ handleCloseModal } task={ task } />
+                ) }
             </td>
         </tr>
     );
