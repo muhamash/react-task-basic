@@ -22,7 +22,7 @@ const AddTask = ( { onClose, task } ) =>
         tags: '',
         priority: ''
     };
-    
+
     const [ formData, setFormData ] = useState( initialFormData );
 
     const handleChange = ( e ) =>
@@ -54,11 +54,11 @@ const AddTask = ( { onClose, task } ) =>
             type: actionType,
             payload: {
                 id: task ? task.id : Math.floor( Math.random() * 1000 ),
-                name: formData.title,
+                title: formData.title,
                 description: formData.description,
-                tagNames: formData.tags.split( "," ),
+                tags: formData.tags.split( "," ),
                 priority: formData.priority,
-                isFavourite: task ? task.isFavourite : false,
+                isFavorite: task ? task.isFavorite : false,
             },
         } );
 

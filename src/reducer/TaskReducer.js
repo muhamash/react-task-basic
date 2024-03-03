@@ -8,7 +8,7 @@ const TaskReducer = ( data, action ) =>
     switch ( action.type )
     {
         case ADD_TASK:
-            return [ ...data.action.payload ];
+            return [ ...data, action.payload ];
         case EDIT_TASK:
             return data.map( ( task ) =>
                 task.id === action.payload.id ? { ...task, ...action.payload } : task
