@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useTasks } from '../context/TaskProvider';
 
-const SearchBox = ({ handleSearch }) => {
+const SearchBox = () => {
+    const { filterTasks } = useTasks();
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleChange = ( event ) =>
-    {
-        event.preventDefault();
-        setSearchQuery( event.target.value );
-        handleSearch(event.target.value);
+    const handleChange = (event) => {
+        setSearchQuery(event.target.value);
+        filterTasks(event.target.value);
     };
 
     return (

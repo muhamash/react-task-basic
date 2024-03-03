@@ -1,12 +1,20 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useTasksDispatch } from '../context/TaskProvider';
 
-const AddTask = ({ onClose, task }) => {
-    console.log(task);
 
-    const initialValues = task ? {
+const AddTask = ( { onClose, task } ) =>
+{
+    // console.log(task);
+    const dispatch = useTasksDispatch();
+
+    const initialFormData = task ? {
         title: task.title,
         description: task.description,
-        tags: task.tags ? task.tags.join(', ') : '', // Check if tags exist before joining
+        tags: task.tags ? task.tags.join( ', ' ) : '',
         priority: task.priority
     } : {
         title: '',
@@ -14,16 +22,66 @@ const AddTask = ({ onClose, task }) => {
         tags: '',
         priority: ''
     };
+    
+    const [ formData, setFormData ] = useState( initialFormData );
+
+    const handleChange = ( e ) =>
+    {
+        const { name, value } = e.target;
+        setFormData( ( prevData ) => ( {
+            ...prevData,
+            [ name ]: value,
+        } ) );
+    };
+    const handleSubmit = ( event ) =>
+    {
+        event.preventDefault();
+
+        if (
+            !formData.title ||
+            !formData.description ||
+            !formData.tags ||
+            !formData.priority
+        )
+        {
+            toast.error( "All fields are required!" );
+            return;
+        }
+
+        const actionType = task ? "EDIT_TASK" : "ADD_TASK";
+
+        dispatch( {
+            type: actionType,
+            payload: {
+                id: task ? task.id : Math.floor( Math.random() * 1000 ),
+                name: formData.title,
+                description: formData.description,
+                tagNames: formData.tags.split( "," ),
+                priority: formData.priority,
+                isFavourite: task ? task.isFavourite : false,
+            },
+        } );
+
+        setFormData( initialFormData );
+
+        const toastMessage = task
+            ? "Task updated successfully!"
+            : "Task added successfully!";
+        toast.success( toastMessage );
+
+        onClose();
+    };
 
     return (
         <div className='absolute w-[96vw] left-0 -bottom-[480px]'>
             <form
+                onSubmit={ handleSubmit }
                 className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11"
             >
                 <h2
                     className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]"
                 >
-                    {task ? 'Edit Task' : 'Add New Task'}
+                    { task ? 'Edit Task' : 'Add New Task' }
                 </h2>
 
                 <div className="space-y-9 text-white lg:space-y-10">
@@ -34,7 +92,8 @@ const AddTask = ({ onClose, task }) => {
                             type="text"
                             name="title"
                             id="title"
-                            defaultValue={initialValues.title}
+                            value={ formData.title }
+                            onChange={ handleChange }
                             required
                         />
                     </div>
@@ -45,7 +104,8 @@ const AddTask = ({ onClose, task }) => {
                             type="text"
                             name="description"
                             id="description"
-                            defaultValue={initialValues.description}
+                            value={ formData.description }
+                            onChange={ handleChange }
                             required
                         ></textarea>
                     </div>
@@ -59,7 +119,8 @@ const AddTask = ({ onClose, task }) => {
                                 type="text"
                                 name="tags"
                                 id="tags"
-                                defaultValue={initialValues.tags}
+                                value={ formData.tags }
+                                onChange={ handleChange }
                                 required
                             />
                         </div>
@@ -69,7 +130,8 @@ const AddTask = ({ onClose, task }) => {
                                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                                 name="priority"
                                 id="priority"
-                                defaultValue={initialValues.priority}
+                                value={ formData.priority }
+                                onChange={ handleChange }
                                 required
                             >
                                 <option value="">Select Priority</option>
@@ -85,12 +147,12 @@ const AddTask = ({ onClose, task }) => {
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
                     >
-                        {task ? 'Update Task' : 'Create New Task'}
+                        { task ? 'Update Task' : 'Create New Task' }
                     </button>
                     <button
                         type="button"
                         className="rounded bg-gray-600 px-2 py-1 text-white ml-4 transition-all hover:opacity-80"
-                        onClick={onClose}
+                        onClick={ onClose }
                     >
                         Close
                     </button>

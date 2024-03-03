@@ -1,30 +1,26 @@
-import React from 'react';
+import { useTasks } from '../context/TaskProvider';
 import TableData from './TableData';
 import TableHead from './TableHead';
 
-const Table = ({data, handleDelete, handleToggleFavorite, isAddTaskModalOpen, openAddTaskModal, closeAddTaskModal}) => {
-   
+
+const Table = () => {
+    const { filteredTasks } = useTasks();
+    
     return (
         <div className='overflow-auto'>
             <table>
                 <TableHead />
                 <tbody>
                     {
-                        data.length === 0 ? (
+                        filteredTasks.length === 0 ? (
                             <tr>
                                 <td>no data</td>
                             </tr>
                         ) : (
-                            data.map( task => (
+                            filteredTasks.map( task => (
                                 <TableData
                                     key={ task.id }
                                     task={ task }
-                                    handleDelete={ handleDelete }
-                                    id={ task.id }
-                                    handleToggleFavorite={ handleToggleFavorite }
-                                    isAddTaskModalOpen={ isAddTaskModalOpen }
-                                    openAddTaskModal={ openAddTaskModal }
-                                    closeAddTaskModal={ closeAddTaskModal }
                                 />
                             ) )
                         )
