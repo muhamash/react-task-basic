@@ -5,9 +5,27 @@ const SearchBox = () => {
     const { filterTasks } = useTasks();
     const [searchQuery, setSearchQuery] = useState('');
 
+    const debounce = ( func, delay ) =>
+    {
+        let timer;
+        return function ( ...args )
+        {
+            clearTimeout( timer );
+            timer = setTimeout( () =>
+            {
+                func.apply( this, args );
+            }, delay );
+        };
+    };
+
+    const debouncedSearch = debounce( ( query ) =>
+    {
+        filterTasks( query );
+    }, 500 );
     const handleChange = (event) => {
         setSearchQuery(event.target.value);
-        filterTasks(event.target.value);
+        // filterTasks(event.target.value);
+        debouncedSearch( event.target.value );
     };
 
     return (
